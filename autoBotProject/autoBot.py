@@ -5,8 +5,13 @@ import sys
 
 print("Esse é um bot de organização de arquivos baseados no seu tipo (pdf, exe e etc).\nCuidado com o diretorio em que você colocar esse bot pois ele pode causar erros imprevistos")
 # Path where the files are located and where folders will be created
-path = input("Digite o caminho completo da pasta (exemplo: C:/Users/gusta/Separador): ")
+path = input("Digite o caminho completo da pasta que você quer organizar (exemplo: C:/Users/gusta/Separador): ")
 if not os.path.isdir(path):
+    print("Diretorio invalido, encerrando o programa")
+    time.sleep(5)
+    sys.exit()
+pathToMove = input("\nDigite o caminho completo da pasta para qual os arquivos vão (exemplo: C:/Users/gusta/Separador): ")
+if not os.path.isdir(pathToMove):
     print("Diretorio invalido, encerrando o programa")
     time.sleep(5)
     sys.exit()
@@ -33,7 +38,7 @@ for file_name in file_names:
     file_extension = os.path.splitext(file_name)[1].lower()
     if file_extension:
         folder_name = file_extension[1:] + " files"
-        target_folder_path = os.path.join(path, folder_name)
+        target_folder_path = os.path.join(pathToMove, folder_name)
         if not os.path.exists(target_folder_path):
             os.makedirs(target_folder_path)
         # Full path for the file's current location and the target location
@@ -43,4 +48,5 @@ for file_name in file_names:
         # Move the file if it's not already in the target folder
         if not os.path.exists(target_file_path):
             shutil.move(current_file_path, target_file_path)
-path = input("Prontinho, arquivos organizados")
+print("Prontinho, arquivos organizados")
+time.sleep(6)
